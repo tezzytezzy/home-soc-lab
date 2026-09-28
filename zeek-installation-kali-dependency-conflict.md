@@ -1,6 +1,3 @@
-Absolutely — here is the complete Markdown content in a single copy/paste-ready code block.
-
-````
 # Installing Zeek on Kali Linux: Resolving a `libc6` Dependency Conflict
 
 **Filename:** `zeek-installation-kali-dependency-conflict.md`
@@ -11,19 +8,19 @@ Absolutely — here is the complete Markdown content in a single copy/paste-read
 
 ---
 
-## 1. Overview
+# 1\. Overview
 
 While setting up a defensive-security/SOC lab on Kali Linux, I attempted to install Zeek using:
 
 ```bash
 sudo apt install zeek
-````
+```
 
  The installation initially failed because Kali's available Zeek package had an incompatible `libc6` dependency.
 
  The problem was eventually resolved by:
 
- 1. Verifying the installed and candidate package versions.
+1. Verifying the installed and candidate package versions.
 2. Confirming that Kali's Zeek package was outdated/incompatible with the installed `libc6`.
 3. Adding the Zeek package repository separately.
 4. Refreshing APT package metadata.
@@ -719,8 +716,4 @@ Zeek installed successfully
         ├── Zeek installed under /opt/zeek
         ├── /opt/zeek/bin added to PATH
         └── zeek --version verified
-```
-
-```
-
 ```
