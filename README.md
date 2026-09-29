@@ -1,4 +1,4 @@
-# Experimental IDS Lab — TShark + Suricata
+# Experimental Intrusion Detection System (IDS) Lab — TShark + Suricata
 
 A small, controlled intrusion-detection experiment demonstrating how network packets can be captured with **TShark**, analyzed offline with **Suricata**, and matched against both **default Suricata rules** and a **custom detection rule**.
 
@@ -37,6 +37,46 @@ The objective of this project is to build and demonstrate a minimal IDS workflow
 │ IDS Event            │
 └──────────────────────┘
 ```
+Technically, the completed experiment can be represented as:
+
+```text
+                  Controlled Local Lab
+                  ====================
+
+       curl
+        |
+        | HTTP GET
+        v
+  127.0.0.1:8080
+        |
+        v
+ Python HTTP Server
+        |
+        | loopback traffic
+        v
+       lo
+        |
+        v
+      TShark
+        |
+        | PCAP
+        v
+home-soc-alert.pcapng
+        |
+        | Suricata -r ... -k none
+        v
+     Suricata
+        |
+        +--> HTTP parser
+        |
+        +--> Custom rule SID 1000001
+        |
+        v
+     eve.json
+        |
+        v
+HOME-SOC TEST - HTTP GET detected
+```
 
 The experiment demonstrates:
 
@@ -53,14 +93,9 @@ The experiment demonstrates:
 
 ## 2. Systems and Software Used
 
-### Hardware
-
-* Dell laptop
-* 8 GB RAM
-
 ### Operating System
 
-* Kali Linux Purple (2026.2)
+* Linux Dell 6.19.14+kali-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.19.14-1+kali1 (2026-05-05) x86_64 GNU/Linux a.k.a Linux Purple (2026.2)
 
 ### Software
 | Software       | Version                       | Purpose                                                                      |
@@ -114,7 +149,7 @@ The exact paths may differ on another installation.
 
 ---
 
-# 4. Start the Local HTTP Test Server
+## 4. Start the Local HTTP Test Server
 
 A deliberately simple HTTP server was created using Python.
 
@@ -146,7 +181,7 @@ The Python server should record a request similar to:
 
 ---
 
-# 5. Capture the Traffic with TShark
+## 5. Capture the Traffic with TShark
 
 TShark was used to capture traffic from the loopback interface.
 
@@ -166,9 +201,7 @@ The important components are:
 
 The resulting capture is:
 
-```text
-~/Desktop/home-soc-lab/captures/home-soc-alert.pcapng
-```
+![https://github.com/tezzytezzy/home-soc-lab/blob/main/images/tshark-packet-capture-info.png](https://github.com/tezzytezzy/home-soc-lab/blob/main/images/tshark-packet-capture-info.png)
 
 While TShark is capturing, generate the HTTP request from another terminal:
 
@@ -198,7 +231,7 @@ home-soc-alert.pcapng
 
 ---
 
-# 6. Create the Custom Suricata Rule
+## 6. Create the Custom Suricata Rule
 
 The experiment used a custom rule called:
 
@@ -213,6 +246,22 @@ The final rule was:
 ```text
 alert http any any -> any any (msg:"HOME-SOC TEST - HTTP GET detected"; flow:established,to_server; http.method; content:"GET"; sid:1000001; rev:1;)
 ```
+
+The rule contains:
+
+| Component                    | Meaning                                               |
+| ---------------------------- | ----------------------------------------------------- |
+| `alert`                      | Generate an alert                                     |
+| `http`                       | Use Suricata's HTTP application-layer protocol parser |
+| `any any`                    | Any source IP and source port                         |
+| `->`                         | Traffic direction                                     |
+| `any any`                    | Any destination IP and destination port               |
+| `msg`                        | Human-readable alert message                          |
+| `flow:established,to_server` | Match established traffic going toward the server     |
+| `http.method`                | Inspect the HTTP method                               |
+| `content:"GET"`              | Match the `GET` method                                |
+| `sid:1000001`                | Unique Suricata Signature ID                          |
+| `rev:1`                      | Rule revision                                         |
 
 ### Important: Keep the rule on one line
 
@@ -243,62 +292,9 @@ and:
 no rule options
 ```
 
-Therefore, keep the complete signature on one line when creating this experimental rule.
-
-The rule components are:
-
-```text
-alert
-```
-
-Generate an alert when the signature matches.
-
-```text
-http
-```
-
-Inspect HTTP application-layer traffic.
-
-```text
-any any -> any any
-```
-
-Match traffic regardless of source/destination IP and port.
-
-```text
-msg:"HOME-SOC TEST - HTTP GET detected"
-```
-
-Human-readable alert message.
-
-```text
-flow:established,to_server
-```
-
-Require an established connection traveling toward the server.
-
-```text
-http.method;
-content:"GET";
-```
-
-Inspect the HTTP method and match `GET`.
-
-```text
-sid:1000001;
-```
-
-Unique local signature identifier.
-
-```text
-rev:1;
-```
-
-Initial revision number.
-
 ---
 
-# 7. Download and Incorporate the Default Suricata Rules
+## 7. Download and Incorporate the Default Suricata Rules
 
 The initial Suricata installation did **not** contain the downloaded default rule set.
 
@@ -454,45 +450,21 @@ This avoids confusing a **file-access permission problem** with a Suricata confi
 
 ---
 
-# 9. Inspect the Captured HTTP Traffic
+## 9. Inspect the Captured HTTP Traffic
 
 Before sending the PCAP to Suricata, verify that the HTTP request was actually captured.
 
-```bash
-tshark \
-    -r ~/Desktop/home-soc-lab/captures/home-soc-alert.pcapng \
-    -Y "http" \
-    -T fields \
-    -e frame.number \
-    -e ip.src \
-    -e tcp.srcport \
-    -e ip.dst \
-    -e tcp.dstport \
-    -e http.request.method \
-    -e http.request.uri
-```
-
-The experiment produced:
-
-```text
-6    127.0.0.1    47470    127.0.0.1    8080    GET    /
-```
+![https://github.com/tezzytezzy/home-soc-lab/blob/main/images/suricata-eve.json-creation.png](https://github.com/tezzytezzy/home-soc-lab/blob/main/images/tshark-http-packet-verification.png)
 
 This confirms that the PCAP contains the traffic required by the custom rule.
 
 ---
 
-# 10. Analyze the PCAP with Suricata
+## 10. Analyze the PCAP with Suricata
 
 Suricata can process the captured PCAP offline:
 
-```bash
-sudo suricata \
-    -r ~/Desktop/home-soc-lab/captures/home-soc-alert.pcapng \
-    -c /etc/suricata/suricata.yaml \
-    -l ~/Desktop/home-soc-lab/suricata/alert \
-    -k none
-```
+![https://github.com/tezzytezzy/home-soc-lab/blob/main/images/ids-alert-in-eve.json.png](https://github.com/tezzytezzy/home-soc-lab/blob/main/images/suricata-eve.json-creation.png))
 
 ### Why `-k none`?
 
@@ -516,62 +488,15 @@ This option is particularly relevant to this **local experimental loopback captu
 
 ---
 
-# 11. Verify the IDS Alert
+## 11. Verify the IDS Alert
 
 Suricata writes JSON-formatted events to:
 
 ```text
 ~/Desktop/home-soc-lab/suricata/alert/eve.json
 ```
-![IDS Alert](https://github.com/tezzytezzy/home-soc-lab/main/ids-alert-in-eve.png)
-
 Search for the custom signature:
-
-```bash
-grep -i "HOME-SOC TEST" \
-    ~/Desktop/home-soc-lab/suricata/alert/eve.json
-```
-
-The resulting event included:
-
-```json
-{
-  "event_type": "alert",
-  "src_ip": "127.0.0.1",
-  "src_port": 47470,
-  "dest_ip": "127.0.0.1",
-  "dest_port": 8080,
-  "proto": "TCP",
-  "alert": {
-    "action": "allowed",
-    "gid": 1,
-    "signature_id": 1000001,
-    "rev": 1,
-    "signature": "HOME-SOC TEST - HTTP GET detected",
-    "severity": 3
-  },
-  "http": {
-    "hostname": "127.0.0.1",
-    "http_port": 8080,
-    "url": "/",
-    "http_method": "GET",
-    "protocol": "HTTP/1.1",
-    "status": 200
-  },
-  "app_proto": "http",
-  "direction": "to_server"
-}
-```
-
-The important evidence is:
-
-```text
-signature_id: 1000001
-signature:    HOME-SOC TEST - HTTP GET detected
-http_method:  GET
-dest_port:    8080
-app_proto:    http
-```
+![https://github.com/tezzytezzy/home-soc-lab/blob/main/images/ids-alert-in-eve.json.png](https://github.com/tezzytezzy/home-soc-lab/blob/main/images/ids-alert-in-eve.json.png)
 
 This confirms that:
 
@@ -583,7 +508,7 @@ This confirms that:
 
 ---
 
-# 12. Complete Experimental Workflow
+## 12. Complete Experimental Workflow
 
 The complete workflow can be summarized as:
 
@@ -642,7 +567,7 @@ The complete workflow can be summarized as:
 
 ---
 
-# 13. Where Zeek Fits
+## 13. Where Zeek Fits
 
 **Zeek is not required for this particular experiment.**
 
@@ -703,7 +628,7 @@ Therefore, Zeek is intentionally **outside the scope of this repository's main e
 
 ---
 
-# 14. Results
+## 14. Results
 
 The experiment successfully demonstrated the complete detection pipeline:
 
@@ -741,91 +666,7 @@ The experiment therefore provides a reproducible demonstration of a minimal **pa
 
 ---
 
-# 15. Suggested Evidence for the Repository
-
-To keep the repository focused, useful screenshots should show evidence rather than large amounts of terminal output.
-
-### Recommended screenshots
-
-#### 1. Experimental topology
-
-A screenshot or diagram showing:
-
-```text
-curl → 127.0.0.1:8080 → lo → TShark → PCAP → Suricata → eve.json
-```
-
-The diagram in this README can serve as the basis.
-
-#### 2. TShark capture
-
-Show:
-
-```bash
-tshark -i lo ...
-```
-
-with the capture successfully running.
-
-Avoid showing unrelated terminal information.
-
-#### 3. HTTP packet verification
-
-Show the relevant TShark output:
-
-```text
-6    127.0.0.1    47470    127.0.0.1    8080    GET    /
-```
-
-This is strong evidence that the expected traffic exists in the PCAP.
-
-#### 4. Custom rule
-
-Show the contents of:
-
-```text
-home-soc.rules
-```
-
-with the `SID` visible.
-
-#### 5. Suricata configuration
-
-Show only the relevant section:
-
-```yaml
-default-rule-path: /var/lib/suricata/rules
-
-rule-files:
-  - suricata.rules
-  - home-soc.rules
-```
-
-#### 6. Successful Suricata analysis
-
-Show the command:
-
-```bash
-sudo suricata -r ... -c ... -l ... -k none
-```
-
-and its successful completion.
-
-#### 7. Final alert
-
-This is the most important screenshot.
-
-Show:
-
-```bash
-grep -i "HOME-SOC TEST" .../eve.json
-```
-
-with the matching JSON event.
-
----
-
-# 16. Security and Privacy Notes
+## 15. Security and Privacy Notes
 
 This experiment was deliberately restricted to the local machine.
 
@@ -855,7 +696,7 @@ For this repository, the experiment should remain focused on **authorized, local
 
 ---
 
-# 17. Key Lessons
+## 16. Key Lessons
 
 This experiment demonstrates several fundamental IDS concepts:
 
