@@ -1,0 +1,59 @@
+[482124 - Suricata-Main] 2026-09-28 19:36:40 Notice: suricata: This is Suricata version 8.0.6 RELEASE running in USER mode
+[482124 - Suricata-Main] 2026-09-28 19:36:40 Info: cpu: CPUs/cores online: 4
+[482124 - Suricata-Main] 2026-09-28 19:36:40 Info: suricata: Setting engine mode to IDS mode by default
+[482124 - Suricata-Main] 2026-09-28 19:36:40 Info: exception-policy: master exception-policy set to: auto
+[482124 - Suricata-Main] 2026-09-28 19:36:40 Info: suricata: Preparing unexpected signal handling
+[482124 - Suricata-Main] 2026-09-28 19:36:40 Info: logopenfile: fast output device (regular) initialized: fast.log
+[482124 - Suricata-Main] 2026-09-28 19:36:40 Info: logopenfile: eve-log output device (regular) initialized: eve.json
+[482124 - Suricata-Main] 2026-09-28 19:36:40 Info: logopenfile: stats output device (regular) initialized: stats.log
+[482124 - Suricata-Main] 2026-09-28 19:36:54 Info: detect: 2 rule files processed. 53019 rules successfully loaded, 0 rules failed, 0 rules skipped
+[482124 - Suricata-Main] 2026-09-28 19:36:54 Info: threshold-config: Threshold config parsed: 0 rule(s) found
+[482124 - Suricata-Main] 2026-09-28 19:36:54 Info: detect: 53024 signatures processed. 1233 are IP-only rules, 4535 are inspecting packet payload, 47020 inspect application layer, 110 are decoder event only
+[482124 - Suricata-Main] 2026-09-28 19:36:56 Info: unix-manager: unix socket '/var/run/suricata/suricata-command.socket'
+[482471 - RX#01] 2026-09-28 19:36:56 Info: pcap: Starting file run for /home/<USERNAME>/Desktop/home-soc-lab/captures/home-soc-alert.pcapng
+[482471 - RX#01] 2026-09-28 19:36:56 Info: pcap: pcap file /home/<USERNAME>/Desktop/home-soc-lab/captures/home-soc-alert.pcapng end of file reached (pcap err code 0)
+[482124 - Suricata-Main] 2026-09-28 19:36:56 Notice: threads: Threads created -> RX: 1 W: 4 FM: 1 FR: 1   Engine started.
+[482124 - Suricata-Main] 2026-09-28 19:36:56 Notice: suricata: Signal Received.  Stopping engine.
+[482124 - Suricata-Main] 2026-09-28 19:36:56 Info: suricata: time elapsed 0.066s
+[482471 - RX#01] 2026-09-28 19:36:56 Warning: pcap: 1/1th of packets have an invalid checksum, consider setting pcap-file.checksum-checks variable to no or use '-k none' option on command line.
+[482471 - RX#01] 2026-09-28 19:36:56 Notice: pcap: read 1 file, 14 packets, 1625 bytes
+[482124 - Suricata-Main] 2026-09-28 19:36:56 Info: counters: Alerts: 13
+[485933 - Suricata-Main] 2026-09-28 19:41:32 Notice: suricata: This is Suricata version 8.0.6 RELEASE running in USER mode
+[485933 - Suricata-Main] 2026-09-28 19:41:32 Info: cpu: CPUs/cores online: 4
+[485933 - Suricata-Main] 2026-09-28 19:41:32 Info: suricata: Setting engine mode to IDS mode by default
+[485933 - Suricata-Main] 2026-09-28 19:41:32 Info: exception-policy: master exception-policy set to: auto
+[485933 - Suricata-Main] 2026-09-28 19:41:33 Info: suricata: Preparing unexpected signal handling
+[485933 - Suricata-Main] 2026-09-28 19:41:33 Info: logopenfile: fast output device (regular) initialized: fast.log
+[485933 - Suricata-Main] 2026-09-28 19:41:33 Info: logopenfile: eve-log output device (regular) initialized: eve.json
+[485933 - Suricata-Main] 2026-09-28 19:41:33 Info: logopenfile: stats output device (regular) initialized: stats.log
+[485933 - Suricata-Main] 2026-09-28 19:41:48 Info: detect: 2 rule files processed. 53019 rules successfully loaded, 0 rules failed, 0 rules skipped
+[485933 - Suricata-Main] 2026-09-28 19:41:48 Info: threshold-config: Threshold config parsed: 0 rule(s) found
+[485933 - Suricata-Main] 2026-09-28 19:41:48 Info: detect: 53024 signatures processed. 1233 are IP-only rules, 4535 are inspecting packet payload, 47020 inspect application layer, 110 are decoder event only
+[485933 - Suricata-Main] 2026-09-28 19:41:50 Info: unix-manager: unix socket '/var/run/suricata/suricata-command.socket'
+[486110 - RX#01] 2026-09-28 19:41:50 Info: pcap: Starting file run for /home/<USERNAME>/Desktop/home-soc-lab/captures/home-soc-alert.pcapng
+[486110 - RX#01] 2026-09-28 19:41:50 Info: pcap: pcap file /home/<USERNAME>/Desktop/home-soc-lab/captures/home-soc-alert.pcapng end of file reached (pcap err code 0)
+[485933 - Suricata-Main] 2026-09-28 19:41:50 Notice: threads: Threads created -> RX: 1 W: 4 FM: 1 FR: 1   Engine started.
+[485933 - Suricata-Main] 2026-09-28 19:41:50 Notice: suricata: Signal Received.  Stopping engine.
+[485933 - Suricata-Main] 2026-09-28 19:41:50 Info: suricata: time elapsed 0.070s
+[486110 - RX#01] 2026-09-28 19:41:50 Warning: pcap: 1/1th of packets have an invalid checksum, consider setting pcap-file.checksum-checks variable to no or use '-k none' option on command line.
+[486110 - RX#01] 2026-09-28 19:41:50 Notice: pcap: read 1 file, 14 packets, 1625 bytes
+[485933 - Suricata-Main] 2026-09-28 19:41:50 Info: counters: Alerts: 13
+[487285 - Suricata-Main] 2026-09-28 19:43:58 Notice: suricata: This is Suricata version 8.0.6 RELEASE running in USER mode
+[487285 - Suricata-Main] 2026-09-28 19:43:58 Info: cpu: CPUs/cores online: 4
+[487285 - Suricata-Main] 2026-09-28 19:43:58 Info: suricata: Setting engine mode to IDS mode by default
+[487285 - Suricata-Main] 2026-09-28 19:43:58 Info: exception-policy: master exception-policy set to: auto
+[487285 - Suricata-Main] 2026-09-28 19:43:58 Info: suricata: Preparing unexpected signal handling
+[487285 - Suricata-Main] 2026-09-28 19:43:58 Info: logopenfile: fast output device (regular) initialized: fast.log
+[487285 - Suricata-Main] 2026-09-28 19:43:58 Info: logopenfile: eve-log output device (regular) initialized: eve.json
+[487285 - Suricata-Main] 2026-09-28 19:43:58 Info: logopenfile: stats output device (regular) initialized: stats.log
+[487285 - Suricata-Main] 2026-09-28 19:44:14 Info: detect: 2 rule files processed. 53019 rules successfully loaded, 0 rules failed, 0 rules skipped
+[487285 - Suricata-Main] 2026-09-28 19:44:14 Info: threshold-config: Threshold config parsed: 0 rule(s) found
+[487285 - Suricata-Main] 2026-09-28 19:44:14 Info: detect: 53024 signatures processed. 1233 are IP-only rules, 4535 are inspecting packet payload, 47020 inspect application layer, 110 are decoder event only
+[487285 - Suricata-Main] 2026-09-28 19:44:16 Info: unix-manager: unix socket '/var/run/suricata/suricata-command.socket'
+[487433 - RX#01] 2026-09-28 19:44:16 Info: pcap: Starting file run for /home/<USERNAME>/Desktop/home-soc-lab/captures/home-soc-alert.pcapng
+[487433 - RX#01] 2026-09-28 19:44:16 Info: pcap: pcap file /home/<USERNAME>/Desktop/home-soc-lab/captures/home-soc-alert.pcapng end of file reached (pcap err code 0)
+[487285 - Suricata-Main] 2026-09-28 19:44:16 Notice: threads: Threads created -> RX: 1 W: 4 FM: 1 FR: 1   Engine started.
+[487285 - Suricata-Main] 2026-09-28 19:44:16 Notice: suricata: Signal Received.  Stopping engine.
+[487285 - Suricata-Main] 2026-09-28 19:44:16 Info: suricata: time elapsed 0.072s
+[487433 - RX#01] 2026-09-28 19:44:16 Notice: pcap: read 1 file, 14 packets, 1625 bytes
+[487285 - Suricata-Main] 2026-09-28 19:44:16 Info: counters: Alerts: 14
