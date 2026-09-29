@@ -95,7 +95,7 @@ The experiment demonstrates:
 
 ### Operating System
 
-* Linux Dell 6.19.14+kali-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.19.14-1+kali1 (2026-05-05) x86_64 GNU/Linux a.k.a Linux Purple (2026.2)
+* Linux Dell 6.19.14+kali-amd64 #1 SMP PREEMPT_DYNAMIC Kali 6.19.14-1+kali1 (2026-05-05) x86_64 GNU/Linux
 
 ### Software
 | Software       | Version                       | Purpose                                                                      |
@@ -464,7 +464,7 @@ This confirms that the PCAP contains the traffic required by the custom rule.
 
 Suricata can process the captured PCAP offline:
 
-![https://github.com/tezzytezzy/home-soc-lab/blob/main/images/ids-alert-in-eve.json.png](https://github.com/tezzytezzy/home-soc-lab/blob/main/images/suricata-eve.json-creation.png))
+![https://github.com/tezzytezzy/home-soc-lab/blob/main/images/ids-alert-in-eve.json.png](https://github.com/tezzytezzy/home-soc-lab/blob/main/images/suricata-eve.json-creation.png)
 
 ### Why `-k none`?
 
@@ -508,66 +508,7 @@ This confirms that:
 
 ---
 
-## 12. Complete Experimental Workflow
-
-The complete workflow can be summarized as:
-
-```text
-                    CONTROLLED LOCAL LAB
-                    ====================
-
-                 ┌─────────────────────┐
-                 │ Python HTTP Server  │
-                 │ 127.0.0.1:8080     │
-                 └──────────┬──────────┘
-                            ▲
-                            │ HTTP GET
-                            │
-                       ┌────┴────┐
-                       │  curl   │
-                       └────┬────┘
-                            │
-                            ▼
-                 ┌─────────────────────┐
-                 │ Loopback Interface  │
-                 │         lo          │
-                 └──────────┬──────────┘
-                            │
-                            │ packets
-                            ▼
-                 ┌─────────────────────┐
-                 │       TShark        │
-                 │     packet capture  │
-                 └──────────┬──────────┘
-                            │
-                            │ PCAPNG
-                            ▼
-                 ┌─────────────────────┐
-                 │ home-soc-alert.pcap │
-                 └──────────┬──────────┘
-                            │
-                            ▼
-                 ┌─────────────────────┐
-                 │      Suricata       │
-                 │                     │
-                 │  Default rules      │
-                 │        +            │
-                 │  home-soc.rules     │
-                 └──────────┬──────────┘
-                            │
-                            │ alert
-                            ▼
-                 ┌─────────────────────┐
-                 │      eve.json       │
-                 │                     │
-                 │ HOME-SOC TEST       │
-                 │ HTTP GET detected   │
-                 └─────────────────────┘
-```
-
----
-
-## 13. Where Zeek Fits
+## 12. Where Zeek Fits
 
 **Zeek is not required for this particular experiment.**
 
@@ -600,7 +541,7 @@ Zeek would fit into a broader network-monitoring pipeline:
               ▼                       ▼
           Suricata                  Zeek
               │                       │
-              │ Alerts               │ Network metadata
+              │ Alerts                │ Network metadata
               │                       │
               ▼                       ▼
           eve.json               Zeek logs
@@ -628,7 +569,7 @@ Therefore, Zeek is intentionally **outside the scope of this repository's main e
 
 ---
 
-## 14. Results
+## 13. Results
 
 The experiment successfully demonstrated the complete detection pipeline:
 
@@ -666,7 +607,7 @@ The experiment therefore provides a reproducible demonstration of a minimal **pa
 
 ---
 
-## 15. Security and Privacy Notes
+## 14. Security and Privacy Notes
 
 This experiment was deliberately restricted to the local machine.
 
@@ -696,7 +637,7 @@ For this repository, the experiment should remain focused on **authorized, local
 
 ---
 
-## 16. Key Lessons
+## 15. Key Lessons
 
 This experiment demonstrates several fundamental IDS concepts:
 
